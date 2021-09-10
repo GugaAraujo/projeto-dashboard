@@ -1,60 +1,42 @@
-jQuery(document).ready(function($){
-    window.onscroll = function(){
-        if(window.pageYOffset > 140) {
-            $("#header").addClass("active")
-        } else {
-            $("#header").removeClass("active")
+var botoesNavegador = document.querySelectorAll(".menu")
+var frameDados = document.querySelector("#frameDados")
+var frameOver = document.querySelector("#frameOver")
+var menuOver = document.querySelector("#menuOver")
+var menuDados = document.querySelector("#menuDados")
+
+
+botoesNavegador.forEach(botao => {
+    
+
+    botao.addEventListener('click',(event)=>{
+            if(botao.textContent == "Overview"){
+            frameOver.classList.remove('frameOculto')
+            frameDados.setAttribute("class","frameOculto")
+            menuDados.classList.remove('active')
+            menuOver.classList.add('active')
+
         }
-    }
-
-    //Isotope
-    let btns = $("#servicos .button-group button");
-    btns.click(function(e){
-        $("#servicos .button-group button").removeClass("active");
-        e.target.classList.add("active");
-
-        let selector = $(e.target).attr("data-filter");
-        $("#servicos .grid").isotope({
-            filter: selector,
-        });
-    });
-
-    $(window).on("load", function(){
-        $("#servicos .grid").isotope({
-            filter: "*",
-        });
-    });
-
-    //Magnify
-    $(".grid .popup-link").magnificPopup({
-        type: "image",
-        gallery: {
-            enabled: true,
-            tPrev: "Anterior",
-            tNext: "Próxima",
-            tCounter: "%curr% de %total%",
+        else if(botao.textContent == "Dados Consolidados"){
+            frameDados.classList.remove('frameOculto')
+            frameOver.setAttribute("class","frameOculto")
+            menuOver.classList.remove('active')
+            menuDados.classList.add('active')
         }
-    });
-
-
-    //owl
-    $(".owl-carousel").owlCarousel({
-        loop: true,
-        margin: 30,
-        autoplay: true,
-        autoplayTimeout: 4000,
-        dots: true,
-        lazyLoad: true,
-        nav: false,
-        responsive: {
-            0: {
-                items: 1,
-            },
-            600: {
-                items: 1,
-            },1000: {
-                items: 2,
-            },
-        },
-    });
+    })   
 });
+
+
+// data
+
+var data = new Date();
+var dia = data.getDate();
+var mes = data.getMonth();
+var ano = data.getFullYear();
+var hora = data.getHours();
+var min = data.getMinutes();
+
+var dataPainel = `${hora}:${min} - ${dia}/${mes+1}/${ano}`
+
+document.getElementById('dataPainel').innerHTML = dataPainel;
+
+
